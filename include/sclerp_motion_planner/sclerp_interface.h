@@ -51,6 +51,27 @@ class ScLERPInterface
     bool solve( const Eigen::VectorXd &init_jnt_values,
                 const Eigen::Matrix4d &g_f,
                 trajectory_msgs::JointTrajectory &jnt_trajectory);
+                
+    /*!
+      \brief    To plan motion between initial and goal states
+
+      \details  Returns the sequence of joint angles required for moving the
+                manipulator from the given initial state to the required
+                goal state
+
+      \param    init_jnt_values   Initial joint encoder values of the
+                                  manipulator
+      \param    g_f               Required final pose of the manipulator's
+                                  end-effector
+      \param    jnt_trajectory    The required motion plan
+      \param    ee_trajectory     End effector trajectory
+
+      \return   Success/Failure of motion plan determination
+    */
+    bool solve( const Eigen::VectorXd &init_jnt_values,
+                const Eigen::Matrix4d &g_f,
+                trajectory_msgs::JointTrajectory &jnt_trajectory,
+                std::vector<geometry_msgs::Pose> &ee_trajectory);
 
     /*!
       \brief    The kinematic solver for the manipulator

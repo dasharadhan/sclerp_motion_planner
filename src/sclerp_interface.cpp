@@ -188,4 +188,31 @@ bool ScLERPInterface::solve(const Eigen::VectorXd &init_jnt_values,
                                       
 }
 
+bool ScLERPInterface::solve(const Eigen::VectorXd &init_jnt_values,
+                            const Eigen::Matrix4d &g_f,
+                            trajectory_msgs::JointTrajectory &jnt_trajectory,
+                            std::vector<geometry_msgs::Pose> &ee_trajectory)
+{
+  Eigen::Matrix4d g_i;
+  
+  kinlib_solver_.getFK(init_jnt_values, g_i);
+
+  kinlib::ErrorCodes plan_result = kinlib_solver_.getMotionPlan(
+                                      init_jnt_values,
+                                      g_i,
+                                      g_f,
+                                      jnt_trajectory,
+                                      ee_trajectory);
+                                      
+  if(plan_result == kinlib::ErrorCodes::OPERATION_SUCCESS)
+  {
+    return true;
+  }
+  else
+  {
+    return false;  
+  }
+                                      
+}
+
 }
