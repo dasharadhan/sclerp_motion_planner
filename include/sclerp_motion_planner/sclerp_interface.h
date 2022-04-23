@@ -19,6 +19,8 @@ namespace sclerp_interface
 class ScLERPInterface
 {
   public:
+    ScLERPInterface();
+    
     /*!
       \brief    Constructor to initialize class object
       
